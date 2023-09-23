@@ -8,9 +8,9 @@ import { ref, reactive } from 'vue'
 
 // import {} from '../../src/renderer/src/controller/getFilelist'
 
-console.log('is.dev',is.dev ? true : false)
+// console.log('is.dev',is.dev ? true : false)
 
-console.log('__dirname',__dirname) 
+// console.log('__dirname',__dirname) 
 
 
 require('./getFilelist.js')
@@ -141,7 +141,7 @@ ipcMain.on('set-click-mouse-events', (event, num, options) => {
 
 //子渲染进程通过主进程将数据转发给主渲染进程
 ipcMain.on('forward-send-to-main-service', (event,data) => {
-  console.log('clo',data)
+  //console.log('clo',data)
   //获取子窗口
   let mainWindow = BrowserWindow.fromId(mainWinId.value)
   mainWindow.webContents.send('receive-messages', data)
