@@ -27,8 +27,8 @@ ipcMain.handle('on-getfiles-event', async (e, arg) => {
   // win：图片存储地址 C:\Users\moyis\AppData\Local\Programs\memory-tags\resources\app.asar.unpacked\resources
   const resourcesPath = getDefaultImagePath()
   const files = await readdir(resourcesPath)
-  console.log('resourcesPath',resourcesPath)
-  console.log('files',files)
+  // console.log('resourcesPath',resourcesPath)
+  // console.log('files',files)
   let paths = []
   for(let file of files){
     paths.push({
