@@ -95,7 +95,7 @@ const switchDisplayStatus = () =>{
 }
 
 //控制是否显示
-const isShow = ref(true)
+const isShow = ref(false)
 
 
 
