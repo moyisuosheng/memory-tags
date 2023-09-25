@@ -3,13 +3,13 @@
 </script>
 
 <template>
-  <button id="btn" @click="$emit('closeEvent')" >
+  <button class="close-button" @click="$emit('closeEvent')" >
     exit
   </button>
 </template>
 
 <style lang="css">
-button {
+.close-button {
   padding: 10px 20px;
   text-transform: uppercase;
   border-radius: 8px;
@@ -24,7 +24,7 @@ button {
   user-select: none;
 }
 
-#btn:hover,:focus {
+.close-button:hover {
   color: #ffffff;
   background: #008cff;
   border: 1px solid #008cff;

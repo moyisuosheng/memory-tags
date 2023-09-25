@@ -115,7 +115,7 @@ provide('seting', {
 
 <template >
   <div class="container">
-    <div  class="fix-box-stat" >
+    <div  class="fix-box-seting" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" >
         <!-- <Show @updateShowEvent = "switchDisplay"></Show>
         <Stat  @updateStateEvent="switchDisplayStatus" ></Stat> -->
@@ -169,7 +169,7 @@ a-slider{
   width: 100%;
 
 }
-.fix-box-stat{
+.fix-box-seting{
   top: 10px;
   left: 50px;
   text-align: center;

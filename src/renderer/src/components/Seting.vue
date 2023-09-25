@@ -41,5 +41,8 @@ import Stat from './State.vue'
   display:flex;
   align-items:center;/*垂直居中*/
   justify-content: center;/*水平居中*/
+
+
+  box-shadow: rgba(0,0,0,0.15) 0px 0px 8px 0px;
 }
 </style>
