@@ -1,8 +1,14 @@
 import {  is } from '@electron-toolkit/utils'
-const { ipcMain } = require('electron')
+const { ipcMain , app } = require('electron')
 const fs = require('fs')
 const { readdir } = require('fs/promises')
 const path = require('path')
+
+console.log('app.getPath("userData")',app.getPath("userData"))
+console.log('app.getPath("appData")',app.getPath("appData"))
+console.log('app.getPath("cache")',app.getPath("cache"))
+console.log('app.getPath("temp")',app.getPath("temp"))
+console.log('app.getPath("exe")',app.getPath("exe"))
 
 const getDefaultImagePath = () =>{
   if( is.dev ){

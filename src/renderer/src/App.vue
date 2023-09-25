@@ -1,8 +1,8 @@
 <script setup>
-import { ref , reactive , provide , computed ,onMounted , onBeforeMount} from 'vue'
-
+import { ref , reactive , computed ,onMounted , onBeforeMount , provide} from 'vue'
+import Seting from './components/Seting.vue'
 import Tag from './components/Tag.vue'
-import Stat from './components/State.vue'
+
 //列数
 const columns  = ref(4)
 //总数
@@ -89,27 +89,42 @@ const showTagsStyle = computed(() => {
     left: showTagsStyleTopAndLeft.left + '%',
   }
 })
-//切换显示状态
-const switchDisplayStatus = () =>{
+
+//控制整体是否显示
+const isShow = ref(true)
+
+//控制设置条是否显示
+const isShowConfig = ref(false)
+
+//切换整体显示状态
+const switchDisplay = () =>{
   isShow.value = !isShow.value
+  console.log('switchDisplay',isShow.value)
+}
+//切换设置条显示状态
+const switchDisplayStatus = () =>{
+  isShowConfig.value = !isShowConfig.value
+  console.log('switchDisplayStatus',isShowConfig.value)
 }
 
-//控制是否显示
-const isShow = ref(false)
-
-
-
+provide('seting', {
+  switchDisplay,
+  switchDisplayStatus
+})
 </script>
 
 <template >
   <div class="container">
     <div  class="fix-box-stat" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" >
-        <Stat :statu = "isShow"  @updateStateEvent="switchDisplayStatus" ></Stat>
+        <!-- <Show @updateShowEvent = "switchDisplay"></Show>
+        <Stat  @updateStateEvent="switchDisplayStatus" ></Stat> -->
+
+        <Seting ></Seting>
       </div>
     </div>
 
-    <div v-show="isShow" class="fix-box-width" >
+    <div v-show="isShowConfig && isShow" class="fix-box-width" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave">
         <a-slider v-model:value="showTagsStyleTopAndLeft.top" max="100" />
         <a-slider v-model:value="showTagsStyleTopAndLeft.left" max="100" />
@@ -126,12 +141,12 @@ const isShow = ref(false)
       </div>
     </div> -->
 
-    <div class="fix-box-tags" :style="showTagsStyle">
+    <div v-show="isShow" class="fix-box-tags" :style="showTagsStyle">
       <a-space :size="height" direction="vertical">
         <div v-for="rows in calculatedTags">
           <div class="row">
             <a-space :size="width">
-              <div v-for="(cell,colIndex) in rows" id="tab" @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" @click="appClick(cell)">
+              <div v-for="cell in rows" id="tab" @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" @click="appClick(cell)">
                   <Tag  :cell="cell" ></Tag>
 
               </div>
@@ -160,6 +175,10 @@ a-slider{
   text-align: center;
   position:fixed;
   z-index:100;
+
+  display:flex;
+  align-items:center;/*垂直居中*/
+  justify-content: center;/*水平居中*/
 }
 .fix-box-tags{
   text-align: center;
