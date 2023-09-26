@@ -111,6 +111,9 @@ provide('seting', {
   switchDisplay,
   switchDisplayStatus
 })
+
+//将竖直 滑动输入条置反
+const reverse = ref(true);
 </script>
 
 <template >
@@ -124,22 +127,22 @@ provide('seting', {
       </div>
     </div>
 
-    <div v-show="isShowConfig && isShow" class="fix-box-width" >
+    <div v-show="isShowConfig && isShow" class="slider-horizontal" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave">
-        <a-slider v-model:value="showTagsStyleTopAndLeft.top" max="100" />
         <a-slider v-model:value="showTagsStyleTopAndLeft.left" max="100" />
         <a-slider v-model:value="width" max="500" />
-        <a-slider v-model:value="height" max="500" />
+        
       </div>
     </div>
-    
-    <!-- <div class="fix-box-height" > 
-      <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave">
-        <div style="display: inline-block; height: 100%; margin-left: 70px">
-          <a-slider vertical v-model:value="value1" max = "500"/>
-        </div>
+
+    <div v-show="isShowConfig && isShow" class="slider-vertical" @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" >
+      <div style="display: inline-block; height: 100%; margin-left: 70px"  >
+        <a-slider vertical v-model:value="showTagsStyleTopAndLeft.top" max="100" :reverse="reverse"/>
       </div>
-    </div> -->
+      <div style="display: inline-block; height: 100%;" >
+        <a-slider vertical v-model:value="height" max="500" :reverse="reverse"/>
+      </div>
+    </div>
 
     <div v-show="isShow" class="fix-box-tags" :style="showTagsStyle">
       <a-space :size="height" direction="vertical">
@@ -148,7 +151,6 @@ provide('seting', {
             <a-space :size="width">
               <div v-for="cell in rows" id="tab" @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" @click="appClick(cell)">
                   <Tag  :cell="cell" ></Tag>
-
               </div>
             </a-space>
           </div>
@@ -161,6 +163,22 @@ provide('seting', {
 </template>
 
 <style lang="css">
+.slider-vertical{
+  height: 80%;
+  text-align: center;
+  top:10%;
+  right: 10%;
+  position:fixed;
+  z-index:101;
+}
+.slider-horizontal{
+  width: 80%;
+  text-align: center;
+  top:35px;
+  right: 10%;
+  position:fixed;
+  z-index:101;
+}
 a-slider{
   handleColor: red;
 }
@@ -184,14 +202,6 @@ a-slider{
   text-align: center;
   position:fixed;
   z-index:100;
-}
-.fix-box-width{
-  width: 80%;
-  text-align: center;
-  top:35px;
-  right: 10%;
-  position:fixed;
-  z-index:101;
 }
 .fix-box-height{
   height: 100%;
