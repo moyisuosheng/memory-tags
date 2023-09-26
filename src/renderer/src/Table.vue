@@ -1,5 +1,5 @@
 <script setup>
-import { ref ,reactive,onMounted ,unref} from 'vue'
+import { ref ,reactive,onMounted , unref} from 'vue'
 import ShowTag from './components/ShowTag.vue'
 import CloseButton from './components/CloseButton.vue'
 
@@ -17,15 +17,6 @@ const showImgTagClick = (imgItem) =>{
   const files = myApi.sendToMain({...imgItem})
   console.log('showImgTagClick',imgItem)
 }
-
-const imgList = reactive([
-  {
-    "path":"icon.png"
-  },
-  {
-    "path":"miao.png"
-  }
-])
 
 const activeKey = ref('1')
 
