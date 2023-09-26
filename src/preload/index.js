@@ -74,8 +74,8 @@ const appMouseLeave = async () => {
 
 const appClick = (num) => {
   index.value = num
-  console.log('appClick', index.value)
-  ipcRenderer.send('set-click-mouse-events', event.target.id)
+  //console.log('appClick', index.value)
+  ipcRenderer.send('set-click-mouse-events')
 }
 
 //获取默认图片路径

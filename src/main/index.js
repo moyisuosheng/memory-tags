@@ -25,7 +25,7 @@ const childWinId = ref(null)
 function createWindow() {
   // We cannot require the screen module until the app is ready.
   const { screen } = require('electron')
-
+  
   // Create a window that fills the screen's available work area.
   const primaryDisplay = screen.getPrimaryDisplay()
   //获取屏幕大小
@@ -132,7 +132,7 @@ ipcMain.on('set-ignore-mouse-events', (event, ignore, options) => {
 })
 
 //主渲染进程点击事件
-ipcMain.on('set-click-mouse-events', (event, num, options) => {
+ipcMain.on('set-click-mouse-events', () => {
   //创建子窗口
   createChildWindow()
   //将选中值保存在常量中
