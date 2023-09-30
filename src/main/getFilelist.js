@@ -1,5 +1,5 @@
 import {  is  } from '@electron-toolkit/utils'
-const { ipcMain , app , dialog } = require('electron')
+const { ipcMain , app , dialog , BrowserWindow } = require('electron')
 const fs = require('fs')
 const { readdir } = require('fs/promises')
 const path = require('path')
@@ -98,7 +98,8 @@ ipcMain.handle('on-getfiles-event', async (e, arg) => {
 
 //通过dialog打开文件夹选中多个文件
 const selectFiles = async () =>{
-  let files = await dialog.showOpenDialog({
+  let win = BrowserWindow.getFocusedWindow();
+  let files = await dialog.showOpenDialog(win,{
       defaultPath : getDefaultImagePath() ,
       properties: ['openFile', 'multiSelections'],
       filters: [

@@ -85,7 +85,7 @@ function fn(arr) {
   <div class="tab-container">
     <a-tabs  v-model:activeKey="activeKey">
       <a-tab-pane :key="index" :tab="tab.GroupName" v-for="(tab,index) in tableData">
-        <div v-for="(imgItem,imgIndex) in tab.data" >
+        <div class="tab-cell" v-for="(imgItem,imgIndex) in tab.data" >
           <ShowTag  :cell="imgItem"  @click="showImgTagClick(imgItem)" ></ShowTag>
         </div>
       </a-tab-pane>
@@ -121,6 +121,9 @@ function fn(arr) {
   width:100%;
   align-items:center;/*垂直居中*/
   justify-content: center;/*水平居中*/
+}
+.tab-cell{
+  margin-bottom: 15px;
 }
 .row {
   display:flex;
