@@ -1,6 +1,6 @@
 <script setup>
-import { ref , reactive , computed ,onMounted , onBeforeMount } from 'vue'
-
+import { ref , reactive , computed ,onMounted , onBeforeMount , defineComponent} from 'vue'
+import { SaveOutlined } from '@ant-design/icons-vue'
 import Show from './Show.vue'
 import Stat from './State.vue'
 
@@ -16,7 +16,9 @@ import Stat from './State.vue'
     <div class="block">
         <Stat  ></Stat>
     </div>
-
+    <div  class="block">
+          <SaveOutlined style="color: white;"/>
+    </div>
   </div>
 </template>
 
@@ -31,7 +33,7 @@ import Stat from './State.vue'
   top: 0px;
   left: 50px;
   height: 35px;
-  width: 60px;
+  width: 90px;
   background-color: aqua;
   border-radius: 0px 0px 10px 10px;
   text-align: center;

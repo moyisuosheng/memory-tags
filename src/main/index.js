@@ -1,10 +1,12 @@
-import { app, shell, BrowserWindow , ipcMain } from 'electron'
+import { app, shell, BrowserWindow , ipcMain  } from 'electron'
 import  {  join } from 'path'
 const path = require('path')
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
 // import icon from '../../resources/icon.png?asset'
 import { ref, reactive } from 'vue'
+
+
 
 // import {} from '../../src/renderer/src/controller/getFilelist'
 
@@ -13,7 +15,10 @@ import { ref, reactive } from 'vue'
 // console.log('__dirname',__dirname) 
 
 
+
+
 require('./getFilelist.js')
+
 
 
 //父渲染页面id
@@ -45,7 +50,8 @@ function createWindow() {
       webSecurity: false
     }
   })
-
+  //
+  
   //鼠标穿透
   mainWindow.setIgnoreMouseEvents(true, { forward: true })
   //窗体置顶，窗体级别（由低到高）：normal, floating, torn-off-menu, modal-panel, main-menu, status, pop-up-menu, screen-saver

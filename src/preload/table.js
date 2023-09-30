@@ -24,9 +24,23 @@ const getFilelist = async () => {
   return filelist
 }
 
+const copyFiles = async() =>{
+  return await ipcRenderer.invoke('copy-files')
+}
 
+
+ const getTableConfig = async() =>{
+  return await ipcRenderer.invoke('get-table-config')
+}
+const setTableConfig = async(obj) =>{
+  console.log('setTableConfig',obj)
+  return await ipcRenderer.invoke('set-table-config',obj)
+}
 
 contextBridge.exposeInMainWorld('myApi', {
   getFilelist,
   sendToMain,
+  copyFiles,
+  getTableConfig,
+  setTableConfig,
 })

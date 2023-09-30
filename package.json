@@ -20,6 +20,7 @@
     "@electron-toolkit/utils": "^2.0.0",
     "ant-design-vue": "4.x",
     "dayjs": "^1.11.10",
+    "electron-store": "^8.1.0",
     "pinia": "^2.1.6"
   },
   "devDependencies": {
