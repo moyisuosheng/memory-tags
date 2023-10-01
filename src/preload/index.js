@@ -88,10 +88,21 @@ const inntFun = (fun) => {
   callbackFun = fun
 }
 
+const getMainConfig = async() =>{
+  return await ipcRenderer.invoke('get-main-config')
+}
+const setMainConfig = async(obj) =>{
+  console.log('setMainConfig',obj)
+  return await ipcRenderer.invoke('set-main-config',obj)
+}
+
+
 contextBridge.exposeInMainWorld('myApi', {
   appMouseEnter,
   appMouseLeave,
   appClick,
   inntFun,
   getDefaultImage,
+  getMainConfig,
+  setMainConfig,
 })

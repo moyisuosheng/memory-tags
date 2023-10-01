@@ -1,5 +1,5 @@
 import {  is  } from '@electron-toolkit/utils'
-const { ipcMain , app , dialog , BrowserWindow } = require('electron')
+const { ipcMain , app , dialog , BrowserWindow , shell } = require('electron')
 const fs = require('fs')
 const { readdir } = require('fs/promises')
 const path = require('path')
@@ -11,37 +11,52 @@ const store = new Store()
 
 
 //初始化配置文件
-function initTableConfig(){
-  if(store.get('tableConfig') === undefined){
+function initConfig(){
+
     try{
-      let initData = [
-        {
-          "GroupName": "好鹅",
-          "data": []
-        },
-        {
-          "GroupName": "坏鸭",
-          "data": []
-        },
-        {
-          "GroupName": "中立",
-          "data": []
+      //表格页面配置
+      if(store.get('tableConfig') === undefined){
+        let initData = [
+          {
+            "GroupName": "好鹅",
+            "data": []
+          },
+          {
+            "GroupName": "坏鸭",
+            "data": []
+          },
+          {
+            "GroupName": "中立",
+            "data": []
+          }
+        ]
+        store.set('tableConfig', initData);
+        console.log('已成功初始化表格配置文件!');
+      }
+    }
+    catch(e){
+      console.log('表格配置文件初始化失败!', e );
+    }
+
+    try{
+      //主页面配置
+      if(store.get('mainConfig') === undefined){
+        let initData = {
+          top: 30,
+          left: 30,
+          width: 60,
+          height: 60,
         }
-      ]
-      store.set('tableConfig', initData
-    );
-    console.log('已成功初始化配置文件!');
-    return initData
-  }
-  catch(e){
-    console.log('配置文件初始化失败!', e );
-  }
-}
+        store.set('mainConfig', initData);
+        console.log('已成功初始化主页面配置文件!');
+      }
+    }
+    catch(e){
+      console.log('主页面配置文件初始化失败!', e );
+    }
 }
 
-
-initTableConfig()
-
+initConfig()
 
 console.log('app.getPath("userData")',app.getPath("userData"))
 console.log('app.getPath("appData")',app.getPath("appData"))
@@ -60,7 +75,7 @@ const getDefaultImagePath = () =>{
       resourcesPath.value = path.resolve(__dirname, '../../resources/')
       return resourcesPath.value
     }else{
-      resourcesPath.value = process.resourcesPath + '/app.asar.unpacked/resources/'
+      resourcesPath.value = process.resourcesPath + '\\app.asar.unpacked\\resources\\'
       return resourcesPath.value
     }
   }else{
@@ -146,9 +161,6 @@ ipcMain.handle('copy-files', async () => {
   }
 
   if(sourceFiles.canceled === false){
-
-    
-
     for(let file of sourceFiles.filePaths ){
       //获取文件名
       let fileName = getFileName(file)
@@ -221,12 +233,24 @@ function getName(path) {
 
 
 ipcMain.handle('get-table-config', async () => {
-  initTableConfig()
   return store.get('tableConfig')
-
 });
 
 ipcMain.handle('set-table-config', async (event,obj) => {
   //接收到字符串后，再转换为对象
-  store.set('tableConfig',JSON.parse(obj))
+  store.set('tableConfig',obj)
+});
+
+ipcMain.handle('open-resources-path', async () => {
+  //接收到字符串后，再转换为对象
+  shell.openPath(getDefaultImagePath())
+});
+
+
+ipcMain.handle('get-main-config', async () => {
+  return store.get('mainConfig')
+});
+
+ipcMain.handle('set-main-config', async (event,obj) => {
+  store.set('mainConfig',obj)
 });

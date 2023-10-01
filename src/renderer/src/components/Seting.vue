@@ -1,35 +1,29 @@
 <script setup>
-import { ref , reactive , computed ,onMounted , onBeforeMount , defineComponent} from 'vue'
-import { SaveOutlined } from '@ant-design/icons-vue'
 import Show from './Show.vue'
 import Stat from './State.vue'
-
-
-
+import SaveConfig from './SaveConfig.vue'
 </script>
 
 <template>
-  <div class="fix-box">
-    <div class="block">
-        <Show  ></Show>
+  <div class="seting-box">
+    <div class="seting-block">
+      <Show></Show>
     </div>
-    <div class="block">
-        <Stat  ></Stat>
+    <div class="seting-block">
+      <Stat></Stat>
     </div>
-    <div  class="block">
-          <SaveOutlined style="color: white;"/>
+    <div class="seting-block">
+      <SaveConfig></SaveConfig>
     </div>
   </div>
 </template>
 
 <style lang="css">
-.block{
+.seting-block{
     width: 25px;
     height: 25px;
 }
-
-
-.fix-box{
+.seting-box{
   top: 0px;
   left: 50px;
   height: 35px;
@@ -43,7 +37,6 @@ import Stat from './State.vue'
   display:flex;
   align-items:center;/*垂直居中*/
   justify-content: center;/*水平居中*/
-
 
   box-shadow: rgba(0,0,0,0.15) 0px 0px 8px 0px;
 }

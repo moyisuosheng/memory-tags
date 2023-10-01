@@ -3,6 +3,7 @@ import { ref , reactive , computed ,onMounted , onBeforeMount , provide} from 'v
 import Seting from './components/Seting.vue'
 import Tag from './components/Tag.vue'
 
+import { message } from 'ant-design-vue';
 //列数
 const columns  = ref(4)
 //总数
@@ -10,6 +11,14 @@ const total = ref(16)
 
 const list = reactive([])
 
+
+
+const mainConfig = reactive({
+  top: 0,
+  left: 0,
+  width: 0,
+  height: 0,
+})
 
 //默认图片名称
 const defaultImgName = ref('待定.png')
@@ -68,25 +77,27 @@ onMounted(async () => {
   list.push(...array)
 })
 
-//将函数暴露给预加载脚本
 onBeforeMount(async () => {
+  //将函数暴露给预加载脚本
   window.myApi.inntFun(callback)
+  //获取配置
+  let config = await window.myApi.getMainConfig()
+  mainConfig.top = config.top
+  mainConfig.left = config.left
+  mainConfig.width = config.width
+  mainConfig.height = config.height
+  //setMainConfig,
 })
 
-const width = ref(60)
-const height = ref(60)
+
 
 //显示图片组件
-const showTagsStyleTopAndLeft = reactive({
-  top: 30,
-  left: 30
 
-})
 
 const showTagsStyle = computed(() => {
   return {
-    top: showTagsStyleTopAndLeft.top + '%',
-    left: showTagsStyleTopAndLeft.left + '%',
+    top: mainConfig.top + '%',
+    left: mainConfig.left + '%',
   }
 })
 
@@ -107,9 +118,15 @@ const switchDisplayStatus = () =>{
   console.log('switchDisplayStatus',isShowConfig.value)
 }
 
+const saveMainConfig = async() =>{
+  await window.myApi.setMainConfig(JSON.parse(JSON.stringify(mainConfig)))
+  message.success('页面配置已保存！');
+}
+
 provide('seting', {
   switchDisplay,
-  switchDisplayStatus
+  switchDisplayStatus,
+  saveMainConfig,
 })
 
 //将竖直 滑动输入条置反
@@ -129,26 +146,26 @@ const reverse = ref(true);
 
     <div v-show="isShowConfig && isShow" class="slider-horizontal" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave">
-        <a-slider v-model:value="showTagsStyleTopAndLeft.left" max="100" />
-        <a-slider v-model:value="width" max="500" />
+        <a-slider v-model:value="mainConfig.left" max="100" />
+        <a-slider v-model:value="mainConfig.width" max="500" />
         
       </div>
     </div>
 
     <div v-show="isShowConfig && isShow" class="slider-vertical" @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" >
       <div style="display: inline-block; height: 100%; margin-left: 70px"  >
-        <a-slider vertical v-model:value="showTagsStyleTopAndLeft.top" max="100" :reverse="reverse"/>
+        <a-slider vertical v-model:value="mainConfig.top" max="100" :reverse="reverse"/>
       </div>
       <div style="display: inline-block; height: 100%;" >
-        <a-slider vertical v-model:value="height" max="500" :reverse="reverse"/>
+        <a-slider vertical v-model:value="mainConfig.height" max="500" :reverse="reverse"/>
       </div>
     </div>
 
     <div v-show="isShow" class="fix-box-tags" :style="showTagsStyle">
-      <a-space :size="height" direction="vertical">
+      <a-space :size="mainConfig.height" direction="vertical">
         <div v-for="rows in calculatedTags">
           <div class="row">
-            <a-space :size="width">
+            <a-space :size="mainConfig.width">
               <div v-for="cell in rows" id="tab" @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" @click="appClick(cell)">
                   <Tag  :cell="cell" ></Tag>
               </div>

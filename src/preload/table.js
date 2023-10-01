@@ -37,10 +37,15 @@ const setTableConfig = async(obj) =>{
   return await ipcRenderer.invoke('set-table-config',obj)
 }
 
+
+const openResourcesPath = async() =>{
+  ipcRenderer.invoke('open-resources-path')
+}
 contextBridge.exposeInMainWorld('myApi', {
   getFilelist,
   sendToMain,
   copyFiles,
   getTableConfig,
   setTableConfig,
+  openResourcesPath,
 })
