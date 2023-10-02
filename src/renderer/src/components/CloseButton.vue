@@ -14,7 +14,7 @@
 </button>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .Btn {
   display: flex;
   align-items: center;

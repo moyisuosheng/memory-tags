@@ -14,7 +14,7 @@ const props = defineProps({
     </div>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .tag-container{
     height: 60px;
     width: 60px;

@@ -2,7 +2,7 @@
 import { ref , reactive , onMounted  , computed , onBeforeMount} from 'vue'
 import ShowTag from './components/ShowTag.vue'
 import CloseButton from './components/CloseButton.vue'
-import { UploadOutlined , DeleteOutlined , FolderOpenOutlined } from '@ant-design/icons-vue';
+import { UploadOutlined , DeleteOutlined , FolderOpenOutlined , EditOutlined , CloseOutlined } from '@ant-design/icons-vue';
 
 onBeforeMount(async () => {
   let initData = await window.myApi.getTableConfig()
@@ -101,18 +101,19 @@ const openResourcesPath = () =>{
       </a-tab-pane>
       <template #rightExtra>
         <div class="table-container" >
-          
-          
-          <a-button v-show="activeKey !== 0" type="primary" @click="showModal">Open Modal</a-button>
+
+          <a-button v-show="activeKey !== 0" type="primary" shape="circle" @click="showModal" >
+            <template #icon><EditOutlined /></template>
+          </a-button>
+
           <a-modal v-model:open="open" title="Basic Modal" @ok="handleOk">
-            
             <a-list size="small" bordered :data-source="tableData[activeKey].data">
               <template #renderItem="{ item , index }">
                 <a-list-item>
                   <ShowTag  :cell="item" ></ShowTag>
                   <span>
-                    <a-button type="primary" shape="circle" @click="deleteImage(activeKey,index)" >
-                      <template #icon><DeleteOutlined /></template>
+                    <a-button type="primary" shape="circle" style="background-color: red;" @click="deleteImage(activeKey,index)" >
+                      <template #icon><DeleteOutlined style="color: white;background-color: transparent;" /></template>
                     </a-button>
                   </span>
                 </a-list-item>
@@ -128,9 +129,12 @@ const openResourcesPath = () =>{
                 </a-button>
               </template>
             </a-list>
-
           </a-modal>
-          <CloseButton  @closeEvent="closeWindow" ></CloseButton>
+
+          <a-button type="primary" shape="circle" style="background-color: red;" @click="closeWindow" >
+              <template #icon><CloseOutlined style="color: white;background-color: transparent;"/></template>
+          </a-button>
+          <!-- <CloseButton  @closeEvent="closeWindow" ></CloseButton> -->
       </div>
 
       </template>
@@ -140,11 +144,11 @@ const openResourcesPath = () =>{
  
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .tab-container{
   padding: 20px 20px 20px 20px;
 }
-.table-container{
+.table-container :deep(.anticon){
   display:flex;
   width:100%;
   align-items:center;/*垂直居中*/

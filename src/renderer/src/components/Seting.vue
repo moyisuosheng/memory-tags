@@ -18,7 +18,7 @@ import SaveConfig from './SaveConfig.vue'
   </div>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .seting-block{
     width: 25px;
     height: 25px;

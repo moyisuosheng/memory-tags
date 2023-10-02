@@ -14,7 +14,7 @@ const { switchDisplay } = inject('seting')
     </label>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 /*------ Settings ------*/
 .container {
   --color: #fff;

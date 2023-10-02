@@ -179,7 +179,7 @@ const reverse = ref(true);
 
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .slider-vertical{
   height: 80%;
   text-align: center;

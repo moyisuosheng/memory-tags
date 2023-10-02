@@ -12,6 +12,6 @@ const { saveMainConfig } = inject('seting')
 
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 
 </style>

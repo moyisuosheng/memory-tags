@@ -14,7 +14,7 @@ const { switchDisplayStatus } = inject('seting')
 </label>
 </template>
 
-<style lang="css">
+<style lang="css" scoped>
 .hamburger {
     cursor: pointer;
     
