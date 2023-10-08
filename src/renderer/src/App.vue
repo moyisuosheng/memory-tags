@@ -155,19 +155,19 @@ const reverse = ref(true);
 
     <div v-show="isShowConfig && isShow" class="slider-horizontal" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave">
-        <a-slider v-model:value="mainConfig.setingLeft" max="95" />
-        <a-slider v-model:value="mainConfig.left" max="100" />
-        <a-slider v-model:value="mainConfig.width" max="500" />
+        <a-slider v-model:value="mainConfig.setingLeft" :max="95" />
+        <a-slider v-model:value="mainConfig.left" :max="100" />
+        <a-slider v-model:value="mainConfig.width" :max="500" />
         <a-input-number size="small" :min="1" :max="16" v-model:value="mainConfig.total" />
       </div>
     </div>
 
     <div v-show="isShowConfig && isShow" class="slider-vertical" @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" >
       <div style="display: inline-block; height: 100%; margin-left: 70px"  >
-        <a-slider vertical v-model:value="mainConfig.top" max="100" :reverse="reverse"/>
+        <a-slider vertical v-model:value="mainConfig.top" :max="100" :reverse="reverse"/>
       </div>
       <div style="display: inline-block; height: 100%;" >
-        <a-slider vertical v-model:value="mainConfig.height" max="500" :reverse="reverse"/>
+        <a-slider vertical v-model:value="mainConfig.height" :max="500" :reverse="reverse"/>
       </div>
     </div>
 

@@ -10,8 +10,8 @@ import appIcon from '../../build/icon.ico?asset'
 
 // import {} from '../../src/renderer/src/controller/getFilelist'
 
-// console.log('is.dev',is.dev ? true : false)
-
+//  console.log('is.dev',is.dev)
+ 
 // console.log('__dirname',__dirname) 
 
 
@@ -52,7 +52,7 @@ function createWindow() {
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
-      webSecurity: false
+      ...(is.dev === true ? { webSecurity: false } : {}),
     }
   })
   //
@@ -107,7 +107,7 @@ function createChildWindow() {
     height: height,
     parent: top,
     modal: true,
-    frame:false,
+    frame: false,
     transparent: true,
     autoHideMenuBar: true,
     show: true,
@@ -115,7 +115,7 @@ function createChildWindow() {
     webPreferences: {
       preload: join(__dirname, '../preload/table.js'),
       sandbox: false,
-      webSecurity: false
+      ...(is.dev === true ? { webSecurity: false } : {}),
     }
   })
   // 模态窗口加载页面

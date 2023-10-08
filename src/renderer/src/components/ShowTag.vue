@@ -49,8 +49,10 @@ const props = defineProps({
     border-radius: 5px 5px 5px 5px;
     opacity: 0.8;
 
-
-
+    cursor: pointer;
+    -webkit-user-seletct: none;
+    -moz-user-seletct: none;
+    user-select: none;
 }
 .img:hover {
     opacity: 0.6;
