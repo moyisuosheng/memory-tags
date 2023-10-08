@@ -20,7 +20,7 @@ const props = defineProps({
     width: 60px;
 
     align-items: center; /*垂直居中*/
-
+    
 }
 .show-tag-img{
     height: 100%;
@@ -30,6 +30,7 @@ const props = defineProps({
     cursor: pointer;
     opacity: 0.8;
     /* -webkit-app-region: no-drag; */
+    box-shadow: rgb(40,45,85) 0px -2px 0px 0px inset,rgb(81,87,125) 0px 0px 1px 1px inset,rgba(3,4,9,0.3) 0px 2px 2px 0px;
 }
 .show-tag-text{
     background-color:dimgray;

@@ -30,6 +30,7 @@ const props = defineProps({
     cursor: pointer;
     opacity: 0.8;
     /* -webkit-app-region: no-drag; */
+    box-shadow: rgba(0, 0, 0, 0.571) 0px 0px 0px 3px ;
 }
 .tag-text{
     background-color:dimgray;
