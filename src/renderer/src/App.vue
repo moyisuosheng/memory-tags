@@ -18,6 +18,7 @@ const mainConfig = reactive({
   left: 0,
   width: 0,
   height: 0,
+  total: 16,
 })
 
 //默认图片名称
@@ -46,27 +47,29 @@ const callback =  (index,data) => {
 
 
 
-function fn(arr, num) {
+function fn(arr, columns , numTotal) {
     let newArr = []
-    arr.forEach((it,idx) => {
-        const total = Math.floor(idx / num) //判断当前在第几个数组内
+    let array = arr.slice(0,numTotal)
+    array.forEach((it,idx) => {
+        const total = Math.floor(idx / columns) //判断当前在第几个数组内
         if(!(newArr[total])){ //判断当前是否有数组
             newArr[total]=[]  //如果没有赋值一个空
         }
         newArr[total].push(it) // 并且把当前对应的索引里面进行添加
     });
+    // console.log('newArr',newArr)
     return newArr
 }
         
 const calculatedTags = computed(() => {
-  return fn(list,columns.value)
+  return fn(list,columns.value,mainConfig.total)
 })
 
 onMounted(async () => {
   const defaultImagePath = (await window.myApi.getDefaultImage()) + '/' + defaultImgName.value
   console.log('defaultImagePath', defaultImagePath )
   let array = []
-  for(let i = 0; i < total.value ; i++){
+  for(let i = 0; i < mainConfig.total ; i++){
     array.push({
       "path": defaultImagePath,
       'name':'待定',
@@ -148,7 +151,7 @@ const reverse = ref(true);
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave">
         <a-slider v-model:value="mainConfig.left" max="100" />
         <a-slider v-model:value="mainConfig.width" max="500" />
-        
+        <a-input-number size="small" :min="1" :max="16" v-model:value="mainConfig.total" />
       </div>
     </div>
 
@@ -162,7 +165,7 @@ const reverse = ref(true);
     </div>
 
     <div v-show="isShow" class="fix-box-tags" :style="showTagsStyle">
-      <a-space :size="mainConfig.height" direction="vertical">
+      <a-space :size="mainConfig.height" direction="vertical" align="start">
         <div v-for="rows in calculatedTags">
           <div class="row">
             <a-space :size="mainConfig.width">

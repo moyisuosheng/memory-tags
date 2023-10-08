@@ -46,6 +46,7 @@ function initConfig(){
           left: 30,
           width: 60,
           height: 60,
+          total: 16,
         }
         store.set('mainConfig', initData);
         console.log('已成功初始化主页面配置文件!');
