@@ -1,5 +1,5 @@
 import { contextBridge, ipcRenderer } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
+// import { electronAPI } from '@electron-toolkit/preload'
 
 // window.addEventListener('DOMContentLoaded', () => {
 //   const els = document.getElementsByName('showImgTag')

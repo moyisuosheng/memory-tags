@@ -1,12 +1,11 @@
-import { app, contextBridge, ipcRenderer } from 'electron'
-import { electronAPI } from '@electron-toolkit/preload'
-import { ref , reactive , inject } from 'vue'
+import {  contextBridge, ipcRenderer } from 'electron'
+// import { electronAPI } from '@electron-toolkit/preload'
+import { ref  } from 'vue'
 const path = require('path')
 
 
 
 //记忆标签的id
-const tagId = ref(null)
 
 const index = ref(null)
 
