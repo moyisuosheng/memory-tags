@@ -2,7 +2,7 @@
 import { ref , reactive , onMounted  , computed , onBeforeMount} from 'vue'
 import ShowTag from './components/ShowTag.vue'
 import CloseButton from './components/CloseButton.vue'
-import { UploadOutlined , DeleteOutlined , FolderOpenOutlined , EditOutlined , CloseOutlined } from '@ant-design/icons-vue';
+import { UploadOutlined , DeleteOutlined , FolderOpenOutlined , EditOutlined , CloseOutlined , FileTextOutlined } from '@ant-design/icons-vue';
 
 onBeforeMount(async () => {
   let initData = await window.myApi.getTableConfig()
@@ -88,6 +88,9 @@ const openResourcesPath = () =>{
   window.myApi.openResourcesPath()
 }
 
+const openConfigPath = () =>{
+  window.myApi.openConfigPath()
+}
 </script>
 
 <template>
@@ -101,10 +104,20 @@ const openResourcesPath = () =>{
       </a-tab-pane>
       <template #rightExtra>
         <div class="table-container" >
+          <a-space align="baseline">
+            <a-button v-show="activeKey === 0" type="primary" shape="circle" @click="openConfigPath" >
+              <template #icon><FileTextOutlined /></template>
+            </a-button>
 
-          <a-button v-show="activeKey !== 0" type="primary" shape="circle" @click="showModal" >
-            <template #icon><EditOutlined /></template>
-          </a-button>
+            <a-button v-show="activeKey !== 0" type="primary" shape="circle" @click="showModal" >
+              <template #icon><EditOutlined /></template>
+            </a-button>
+
+            <a-button type="primary" shape="circle" style="background-color: red;" @click="closeWindow" >
+              <template #icon><CloseOutlined style="color: white;background-color: transparent;"/></template>
+            </a-button>
+          </a-space>
+
 
           <a-modal v-model:open="open" title="Basic Modal" @ok="handleOk">
             <a-list size="small" bordered :data-source="tableData[activeKey].data">
@@ -131,9 +144,7 @@ const openResourcesPath = () =>{
             </a-list>
           </a-modal>
 
-          <a-button type="primary" shape="circle" style="background-color: red;" @click="closeWindow" >
-              <template #icon><CloseOutlined style="color: white;background-color: transparent;"/></template>
-          </a-button>
+
           <!-- <CloseButton  @closeEvent="closeWindow" ></CloseButton> -->
       </div>
 

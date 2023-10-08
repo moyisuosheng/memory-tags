@@ -9,7 +9,7 @@ import { ref, reactive } from 'vue'
 const Store = require('electron-store')
 const store = new Store()
 
-
+const configpath = app.getPath("userData")
 //初始化配置文件
 function initConfig(){
 
@@ -244,8 +244,11 @@ ipcMain.handle('set-table-config', async (event,obj) => {
 });
 
 ipcMain.handle('open-resources-path', async () => {
-  //接收到字符串后，再转换为对象
   shell.openPath(getDefaultImagePath())
+});
+
+ipcMain.handle('open-config-path', async () => {
+  shell.openPath(configpath)
 });
 
 

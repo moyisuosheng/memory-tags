@@ -41,6 +41,11 @@ const setTableConfig = async(obj) =>{
 const openResourcesPath = async() =>{
   ipcRenderer.invoke('open-resources-path')
 }
+
+const openConfigPath = async() =>{
+  ipcRenderer.invoke('open-config-path')
+}
+
 contextBridge.exposeInMainWorld('myApi', {
   getFilelist,
   sendToMain,
@@ -48,4 +53,5 @@ contextBridge.exposeInMainWorld('myApi', {
   getTableConfig,
   setTableConfig,
   openResourcesPath,
+  openConfigPath,
 })
