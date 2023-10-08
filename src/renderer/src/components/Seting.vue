@@ -25,8 +25,6 @@ import SaveConfig from './SaveConfig.vue'
   height: 25px;
 }
 .seting-box{
-  top: 0px;
-  left: 50px;
   height: 35px;
   width: 90px;
   background-color: aqua;

@@ -19,6 +19,7 @@ const mainConfig = reactive({
   width: 0,
   height: 0,
   total: 16,
+  setingLeft: 5,
 })
 
 //默认图片名称
@@ -89,6 +90,8 @@ onBeforeMount(async () => {
   mainConfig.left = config.left
   mainConfig.width = config.width
   mainConfig.height = config.height
+  mainConfig.total = config.total
+  mainConfig.setingLeft = config.setingLeft
   //setMainConfig,
 })
 
@@ -101,6 +104,12 @@ const showTagsStyle = computed(() => {
   return {
     top: mainConfig.top + '%',
     left: mainConfig.left + '%',
+  }
+})
+
+const setingStyle = computed(() => {
+  return {
+    left: mainConfig.setingLeft + '%',
   }
 })
 
@@ -138,17 +147,15 @@ const reverse = ref(true);
 
 <template >
   <div class="container">
-    <div  class="fix-box-seting" >
+    <div  class="fix-box-seting" :style="setingStyle" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave" >
-        <!-- <Show @updateShowEvent = "switchDisplay"></Show>
-        <Stat  @updateStateEvent="switchDisplayStatus" ></Stat> -->
-
         <Seting ></Seting>
       </div>
     </div>
 
     <div v-show="isShowConfig && isShow" class="slider-horizontal" >
       <div @mouseenter="appMouseEnter" @mouseleave="appMouseLeave">
+        <a-slider v-model:value="mainConfig.setingLeft" max="95" />
         <a-slider v-model:value="mainConfig.left" max="100" />
         <a-slider v-model:value="mainConfig.width" max="500" />
         <a-input-number size="small" :min="1" :max="16" v-model:value="mainConfig.total" />
@@ -208,15 +215,11 @@ a-slider{
 
 }
 .fix-box-seting{
-  top: 10px;
-  left: 50px;
-  text-align: center;
+  top: 0px;
+  left: 80%;
   position:fixed;
   z-index:100;
-
-  display:flex;
-  align-items:center;/*垂直居中*/
-  justify-content: center;/*水平居中*/
+  display:flex; 
 }
 .fix-box-tags{
   text-align: center;
