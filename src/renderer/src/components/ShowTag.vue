@@ -19,7 +19,7 @@ const props = defineProps({
     height: 60px;
     width: 60px;
 
-    align-items:center;/*垂直居中*/
+    align-items: center; /*垂直居中*/
 
 }
 .show-tag-img{

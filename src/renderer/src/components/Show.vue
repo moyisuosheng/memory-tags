@@ -1,76 +1,68 @@
 <script setup>
-
 import { inject } from 'vue'
-
 const { switchDisplay } = inject('seting')
-
-
 </script>
 
 <template>
-    <label class="container">
-    <input checked="checked" type="checkbox" @click="switchDisplay">
-        <svg viewBox="0 0 512 512" height="100%" xmlns="http://www.w3.org/2000/svg" class="chevron-down"><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path></svg>
-    </label>
+  <label class="show" >
+  <input  type="checkbox" @click="switchDisplay">
+  <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" ><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"></path></svg>
+</label>
+  
 </template>
 
 <style lang="css" scoped>
-/*------ Settings ------*/
-.container {
+
+.show {
   --color: #fff;
   --size: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  
-  font-size: var(--size);
-  user-select: none;
+  height: 100%;
+  width: 100%;
+  cursor: pointer;
   fill: var(--color);
-
-  cursor: pointer;
-}
-
-.container .chevron-down {
-  position: absolute;
-  animation: keyframes-return .5s;
-}
-
-/* ------ On check event ------ */
-.container input:checked ~ .chevron-down {
-  animation: keyframes-rotate .5s;
-  transform: rotate(180deg);
-}
-
-/* ------ Hide the default checkbox ------ */
-.container input {
-  position: absolute;
-  opacity: 0;
-  cursor: pointer;
-  height: 0;
-  width: 0;
-}
-
-/* ------ Animation ------ */
-@keyframes keyframes-rotate {
-  0% {
-    transform: rotate(0deg);
-    opacity: 0;
+  font-size: var(--size);
   }
+  
+  .show input {
+    display: none;
+    
+  }
+  
+  .show svg {
+    /* The size of the SVG defines the overall size */
+    height: 100%;
+    /* Define the transition for transforming the SVG */
+    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
 
-  100% {
+  }
+  
+  .line {
+    fill: none;
+    stroke: white;
+    
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 3;
+    /* Define the transition for transforming the Stroke */
+    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  .line-top-bottom {
+    stroke-dasharray: 12 63;
+    
+  }
+  
+  .show input:checked + svg {
     transform: rotate(-180deg);
   }
-}
-
-@keyframes keyframes-return {
-  0% {
-    transform: rotate(-180deg);
-    opacity: 0;
+  
+  .show input:checked + svg .line-top-bottom {
+    stroke-dasharray: 20 300;
+    stroke-dashoffset: -32.42;
+    
   }
-
-  100% {
-    transform: rotate(0deg);
-  }
-}
+  
 </style>
+
+

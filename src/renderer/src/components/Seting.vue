@@ -20,8 +20,9 @@ import SaveConfig from './SaveConfig.vue'
 
 <style lang="css" scoped>
 .seting-block{
-    width: 25px;
-    height: 25px;
+  flex: 1;
+  width: 25px;
+  height: 25px;
 }
 .seting-box{
   top: 0px;
@@ -31,13 +32,15 @@ import SaveConfig from './SaveConfig.vue'
   background-color: aqua;
   border-radius: 0px 0px 10px 10px;
   text-align: center;
-  position:fixed;
-  z-index:101;
+  position: fixed;
+  z-index: 101;
 
-  display:flex;
-  align-items:center;/*垂直居中*/
-  justify-content: center;/*水平居中*/
+  display: flex;
+  align-items: center;/*垂直居中*/
+  justify-content: space-between;/*水平居中*/
 
   box-shadow: rgba(0,0,0,0.15) 0px 0px 8px 0px;
 }
+
+
 </style>
