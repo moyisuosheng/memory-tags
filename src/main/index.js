@@ -1,12 +1,12 @@
-import { app, shell, BrowserWindow , ipcMain  } from 'electron'
+import { app, shell, BrowserWindow , ipcMain , nativeImage } from 'electron'
 import  {  join } from 'path'
 const path = require('path')
 import { electronApp, optimizer, is } from '@electron-toolkit/utils'
 
 // import icon from '../../resources/icon.png?asset'
 import { ref, reactive } from 'vue'
-
-
+// 应用图标
+import appIcon from '../../build/icon.ico?asset'
 
 // import {} from '../../src/renderer/src/controller/getFilelist'
 
@@ -36,6 +36,8 @@ function createWindow() {
   //获取屏幕大小
   const { width, height } = primaryDisplay.workAreaSize
   // Create the browser window.
+
+
   const mainWindow = new BrowserWindow({
     width: width,
     height: height,
@@ -43,7 +45,10 @@ function createWindow() {
     frame: false,
     transparent: true,
     autoHideMenuBar: true,
-    ...(process.platform === 'linux' ? { icon } : {}),
+    // ...(process.platform === 'linux' ? { icon:path.join(__dirname,'src/renderer/src/assets/icons.svg') } : {}),
+    //icon:path.join(__dirname,'src/renderer/src/assets/miao.ico'),
+
+    icon: appIcon,
     webPreferences: {
       preload: join(__dirname, '../preload/index.js'),
       sandbox: false,
@@ -106,6 +111,7 @@ function createChildWindow() {
     transparent: true,
     autoHideMenuBar: true,
     show: true,
+    icon: appIcon,
     webPreferences: {
       preload: join(__dirname, '../preload/table.js'),
       sandbox: false,
