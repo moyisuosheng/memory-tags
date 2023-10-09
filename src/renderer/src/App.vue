@@ -5,7 +5,7 @@ import Tag from './components/Tag.vue'
 
 import { message } from 'ant-design-vue';
 //列数
-const columns  = ref(4)
+const columns = ref(4)
 
 const list = reactive([])
 
