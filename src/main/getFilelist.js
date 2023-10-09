@@ -57,14 +57,14 @@ function initConfig(){
       console.log('主页面配置文件初始化失败!', e );
     }
 }
-
+//初始化配置
 initConfig()
 
-console.log('app.getPath("userData")',app.getPath("userData"))
-console.log('app.getPath("appData")',app.getPath("appData"))
-console.log('app.getPath("cache")',app.getPath("cache"))
-console.log('app.getPath("temp")',app.getPath("temp"))
-console.log('app.getPath("exe")',app.getPath("exe"))
+// console.log('app.getPath("userData")',app.getPath("userData"))
+// console.log('app.getPath("appData")',app.getPath("appData"))
+// console.log('app.getPath("cache")',app.getPath("cache"))
+// console.log('app.getPath("temp")',app.getPath("temp"))
+// console.log('app.getPath("exe")',app.getPath("exe"))
 
 //图片默认保存地址
 const resourcesPath = ref(undefined)

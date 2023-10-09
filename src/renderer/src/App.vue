@@ -1,16 +1,16 @@
 <script setup>
-import { ref , reactive , computed ,onMounted , onBeforeMount , provide} from 'vue'
+import { ref , reactive , computed ,onMounted , onBeforeMount , provide , watch } from 'vue'
 import Seting from './components/Seting.vue'
 import Tag from './components/Tag.vue'
 
 import { message } from 'ant-design-vue';
 //列数
 const columns  = ref(4)
-//总数
-const total = ref(16)
 
 const list = reactive([])
 
+//默认地址
+const defaultImagePath = ref(undefined)
 
 
 const mainConfig = reactive({
@@ -47,38 +47,64 @@ const callback =  (index,data) => {
 }
 
 
+//当总数发生改变时，改变list
+watch(
+  () => mainConfig.total,
+  async (newValue) => {
+    if (defaultImagePath.value === undefined) {
+      defaultImagePath.value = (await window.myApi.getDefaultImage()) + '/' + defaultImgName.value
+      console.log('defaultImagePath.value',defaultImagePath.value)
+    }
+    
+    const len = list.length
+    for (let index = len; index < newValue; index++) {
+      list.push({
+        path: defaultImagePath.value,
+        name: '待定',
+        index: index,
+        display: true
+      })
+      
+    }
+    console.log('watch-list',list)
+  },
+  { 
+    immediate: true
+  }
+)
 
-function fn(arr, columns , numTotal) {
-    let newArr = []
-    let array = arr.slice(0,numTotal)
-    array.forEach((it,idx) => {
-        const total = Math.floor(idx / columns) //判断当前在第几个数组内
-        if(!(newArr[total])){ //判断当前是否有数组
-            newArr[total]=[]  //如果没有赋值一个空
-        }
-        newArr[total].push(it) // 并且把当前对应的索引里面进行添加
-    });
-    // console.log('newArr',newArr)
-    return newArr
-}
+//侦听默认图片路径，修改源数据
+// watch(defaultImagePath, (newDefaultImagePath) => {
+//   for (let index = 0; index < list.length; index++) {
+//     list[index].path = newDefaultImagePath
+//     console.log('list['+index+']',list[index])
+//   }
+//   console.log('watch-defaultImagePath',list)
+// })
+
         
 const calculatedTags = computed(() => {
-  return fn(list,columns.value,mainConfig.total)
+  return fn(list, columns.value, mainConfig.total)
 })
 
+
+function fn(arr, columns, numTotal) {
+  let newArr = []
+  let array = arr.slice(0,numTotal)
+  array.forEach((it,idx) => {
+    const rows = Math.floor(idx / columns) //判断当前在第几个数组内
+    if(!(newArr[rows])){ //判断当前是否有数组
+        newArr[rows]=[]  //如果没有赋值一个空
+    }
+    newArr[rows].push(it) // 并且把当前对应的索引里面进行添加
+  });
+  // console.log('newArr',newArr)
+  return newArr
+}
+
+
 onMounted(async () => {
-  const defaultImagePath = (await window.myApi.getDefaultImage()) + '/' + defaultImgName.value
-  console.log('defaultImagePath', defaultImagePath )
-  let array = []
-  for(let i = 0; i < mainConfig.total ; i++){
-    array.push({
-      "path": defaultImagePath,
-      'name':'待定',
-      "index": i,
-    })
-  }
-  //填充数据
-  list.push(...array)
+
 })
 
 onBeforeMount(async () => {
@@ -92,7 +118,6 @@ onBeforeMount(async () => {
   mainConfig.height = config.height
   mainConfig.total = config.total
   mainConfig.setingLeft = config.setingLeft
-  //setMainConfig,
 })
 
 
