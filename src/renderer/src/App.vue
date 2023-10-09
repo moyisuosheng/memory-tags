@@ -18,7 +18,7 @@ const mainConfig = reactive({
   left: 0,
   width: 0,
   height: 0,
-  total: 16,
+  total: 0,
   setingLeft: 5,
 })
 
@@ -67,9 +67,6 @@ watch(
       
     }
     console.log('watch-list',list)
-  },
-  { 
-    immediate: true
   }
 )
 
